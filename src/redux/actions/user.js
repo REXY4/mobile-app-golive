@@ -51,6 +51,26 @@ const getBy = (id, navigation)=>async(dispatch)=>{
     }
 };
 
+const deleteBy = (id, navigation)=>async(dispatch)=>{
+    const token = store.getState().auth.token;
+    try {
+        const response = await Api({
+            method : 'DELETE',
+            url : `/user/${id}`,
+            headers : {
+                'Content-Type' : 'application/json',
+                Authorization : `Bearer ${token}`,
+            },
+            data :null,
+        });
+        if (response.data.statusCode === 200){
+            navigation.navigate('Home');
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 
 const getByEdit = (id, navigation, getOne)=>async(dispatch)=>{
     const token = store.getState().auth.token;
@@ -138,4 +158,5 @@ export {
     editData,
     changeStatus,
     getByEdit,
+    deleteBy,
 };

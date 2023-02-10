@@ -5,8 +5,18 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistore, store } from './src/redux/stores';
 import Route from './src/routes';
+import { LogBox } from 'react-native';
+
+// Ignore log notification by message
+LogBox.ignoreLogs(['Warning: ...']);
+
+//Ignore all log notifications
+LogBox.ignoreAllLogs();
+
+
 
 function App() {
+  // debugger;
   return (
     <Provider store={store}>
     <PersistGate loading={null} persistor={persistore}>

@@ -2,13 +2,13 @@
 import { Container, Box, Text, Button } from 'native-base';
 import { connect } from 'react-redux';
 import {StyleSheet} from 'react-native';
-import { changeStatus, getAll, getBy } from '../redux/actions/user';
+import { changeStatus, getAll, getBy, deleteBy } from '../redux/actions/user';
 import DetailUserComponent from '../components/DetailUserComponent';
 import { useEffect } from 'react';
 
 
 
-const DetailUser = ({route, navigation,  user,isInternal, changeStatus,getBy, getAll}) =>{
+const DetailUser = ({route, navigation,  user,isInternal, changeStatus,getBy, getAll, deleteBy}) =>{
     return (
         <Container >
             <Box>
@@ -28,7 +28,7 @@ const DetailUser = ({route, navigation,  user,isInternal, changeStatus,getBy, ge
                 }} colorScheme="primary">
                     <Text color="white" onPress={()=>changeStatus(user, getBy,navigation, getAll)}>{user && user.status}</Text>
                 </Button>
-                <Button style={{
+                <Button onPress={()=>deleteBy(user && user.id,navigation)} style={{
                     width : 100,
                 }} colorScheme="secondary">
                     <Text color="white">Delete</Text>
@@ -63,4 +63,4 @@ const mapStateToProps = (state) => {
         isInternal: state.auth.role,
     };
 };
-export default connect(mapStateToProps,{changeStatus, getBy, getAll})(DetailUser);
+export default connect(mapStateToProps,{changeStatus, getBy, getAll, deleteBy})(DetailUser);
